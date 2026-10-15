@@ -1,0 +1,382 @@
+/* ==========================================================================
+   Design tokens: every color, size and timing lives here, so a restyle is
+   a handful of edits instead of a hunt through the file.
+   ========================================================================== */
+:root {
+  --bg: #0b0d10;
+  --surface: #13171c;
+  --line: #262c34;
+  --text: #e8eaed;
+  --muted: #9aa3ad;
+  --accent: #3df5c4;
+  --accent-ink: #04110d;   /* text color on top of the accent */
+
+  --font-sans: "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --radius: 10px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 40px;
+  --space-6: 64px;
+
+  --dur: 600ms;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3 {
+  line-height: 1.1;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+/* One visible focus style everywhere, so keyboard users always know where they are. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--space-3);
+}
+
+@media (min-width: 720px) {
+  .container {
+    padding: 0 var(--space-4);
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   Buttons and links
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;            /* comfortable tap target */
+  padding: 0 var(--space-4);
+  border-radius: var(--radius);
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 150ms var(--ease), background-color 150ms var(--ease), border-color 150ms var(--ease);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.btn-primary:hover {
+  background: #6ff8d4;
+}
+
+.btn-ghost {
+  border: 1px solid var(--line);
+  color: var(--text);
+}
+
+.btn-ghost:hover {
+  border-color: var(--muted);
+}
+
+.btn-small {
+  min-height: 40px;
+  padding: 0 var(--space-3);
+  font-size: 0.95rem;
+}
+
+.text-link {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.text-link:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+.site-header {
+  border-bottom: 1px solid var(--line);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 68px;
+}
+
+.wordmark {
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+.hero {
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-6);
+}
+
+.hero-title {
+  font-size: clamp(2.4rem, 7vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  max-width: 14ch;
+}
+
+.hero-sub {
+  margin-top: var(--space-4);
+  max-width: 56ch;
+  color: var(--muted);
+  font-size: 1.15rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.terminal-hint {
+  margin-top: var(--space-5);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.terminal-hint .prompt,
+.terminal-hint .arrow {
+  color: var(--accent);
+}
+
+.terminal-hint .dim {
+  opacity: 0.7;
+}
+
+/* ==========================================================================
+   Beginner path: a numbered line, not a grid of cards
+   ========================================================================== */
+.path {
+  padding-top: var(--space-5);
+  padding-bottom: var(--space-6);
+}
+
+.section-title {
+  font-size: clamp(1.6rem, 4vw, 2.25rem);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-5);
+}
+
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+/* The vertical line that connects the three steps. */
+.steps::before {
+  content: "";
+  position: absolute;
+  left: 19px;
+  top: 20px;
+  bottom: 20px;
+  width: 2px;
+  background: var(--line);
+}
+
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: var(--space-4);
+  padding-bottom: var(--space-5);
+}
+
+.step:last-child {
+  padding-bottom: 0;
+}
+
+.step-num {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-weight: 600;
+  position: relative;          /* sits above the connecting line */
+}
+
+.step h3 {
+  font-size: 1.3rem;
+  margin-top: 6px;
+}
+
+.step p {
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-3);
+  color: var(--muted);
+  max-width: 52ch;
+}
+
+.tag {
+  display: inline-block;
+  padding: 2px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: var(--space-5) 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: space-between;
+}
+
+.footer-links {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.footer-links a {
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: var(--text);
+}
+
+/* ==========================================================================
+   Scroll reveal
+   Content is visible by default. It only starts hidden when the inline
+   script in <head> added .js-motion (JS on, reduced motion off).
+   ========================================================================== */
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Modern browsers: the animation is driven by scroll position, no JS needed. */
+@supports (animation-timeline: view()) {
+  .js-motion .reveal {
+    animation: reveal-in linear both;
+    animation-timeline: view();
+    /* Fully shown once the step has completely entered the screen, so even the
+       last step near the page bottom always finishes revealing. */
+    animation-range: entry 0% entry 100%;
+  }
+}
+
+/* Older browsers: start hidden; effects.js adds .visible when the step scrolls in. */
+@supports not (animation-timeline: view()) {
+  .js-motion .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+  }
+
+  .js-motion .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* If someone asked their system for less motion, give them none. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
