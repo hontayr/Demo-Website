@@ -9,6 +9,7 @@
   --line: #262c34;
   --text: #e8eaed;
   --muted: #9aa3ad;
+  --dim: #7d858e;          /* dimmer than --muted, still 4.5:1 on --bg */
   --accent: #3df5c4;
   --accent-ink: #04110d;   /* text color on top of the accent */
 
@@ -27,6 +28,7 @@
   --ease: cubic-bezier(.2, .7, .2, 1);
 
   --step-size: 40px;       /* the numbered circle; the connector line centers on it */
+  --reveal-offset: 16px;   /* how far a step rises as it fades in */
 }
 
 /* ==========================================================================
@@ -130,7 +132,6 @@ a {
 }
 
 .btn-small {
-  min-height: 44px;
   padding: 0 var(--space-3);
   font-size: 0.95rem;
 }
@@ -209,7 +210,7 @@ a {
 }
 
 .terminal-hint .dim {
-  color: #7d858e;              /* dimmer than --muted, still 4.5:1 on --bg */
+  color: var(--dim);
 }
 
 /* ==========================================================================
@@ -329,7 +330,7 @@ a {
 @keyframes reveal-in {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(var(--reveal-offset));
   }
   to {
     opacity: 1;
@@ -354,7 +355,7 @@ a {
 @supports not (animation-timeline: view()) {
   .reveal-ready .reveal {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(var(--reveal-offset));
     transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
   }
 
@@ -373,6 +374,7 @@ a {
     --line: #bbb;
     --text: #000;
     --muted: #333;
+    --dim: #555;
     --accent: #006b52;
   }
 
