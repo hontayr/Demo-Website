@@ -16,3 +16,9 @@ Key routing rules:
 - Save progress → invoke /context-save
 - Resume context → invoke /context-restore
 - Author a backlog-ready spec/issue → invoke /spec
+
+## Testing
+
+- Run: `node --test` from the repo root (Node's built-in runner, no install). It finds `tests/*.test.mjs`.
+- `tests/effects.test.mjs` loads `js/effects.js` into a `node:vm` context with a fake DOM.
+- When fixing a bug, add a regression test that fails before the fix.
