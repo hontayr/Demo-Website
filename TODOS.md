@@ -40,6 +40,20 @@
 **Priority:** P2
 **Depends on:** None
 
+### Keep the page from going blank when Google Fonts hangs
+
+**What:** Load the Google Fonts stylesheet in `index.html` without blocking the page (`media="print" onload="this.media='all'"` plus a `<noscript>` copy of the link), or self-host the two font families with `@font-face` in `css/styles.css`.
+
+**Why:** The page waits for `fonts.googleapis.com` before it shows anything, and `effects.js` waits behind it. On a network that silently drops requests to Google (some school or work firewalls), visitors see a blank page until the request times out. `display=swap` only covers the font files, not this stylesheet.
+
+**Context:** Found by the Red Team in the pre-ship review and deferred: the non-blocking version makes every visitor see the text switch fonts a moment after load. Self-hosting avoids both problems. Re-check the font-weight test in `tests/effects.test.mjs`, which reads the font link.
+
+**Effort:** S
+**Priority:** P2
+**Depends on:** None
+
+## Completed
+
 ### Make the "loads after the page is parsed" test unable to pass by accident
 
 **What:** In `tests/effects.test.mjs`, assert the step-markup anchor exists before comparing positions (`assert.ok(last !== -1, 'step markup anchor missing')`), or find it with a looser regex for any `reveal` class.
@@ -51,5 +65,4 @@
 **Effort:** S
 **Priority:** P2
 **Depends on:** None
-
-## Completed
+**Completed:** feat/homepage (2026-10-18). The test now asserts a `.reveal` anchor exists and finds it with a looser regex; removing `defer` fails it.
