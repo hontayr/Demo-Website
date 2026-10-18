@@ -52,6 +52,24 @@
 **Priority:** P2
 **Depends on:** None
 
+## Tests
+
+### Close four gaps in the stylesheet tests
+
+**What:** Fix four edge cases in `tests/effects.test.mjs` found in the third pre-ship review pass:
+1. The `font:` shorthand weight check reads `font: normal 600 …` as weight 400. Match a number, `bold`, `bolder` or `lighter` first, and fall back to `normal` only when none is present.
+2. "Every CSS custom property … is defined" also counts tokens defined only in `@media print`. Collect definitions from the top-level `:root` rule (or strip the print block first).
+3. `monoSelectors` and `isMono` only recognize `font-family: var(--font-mono)`. Use one "sets the mono font" check that also matches `font: … var(--font-mono)`.
+4. The value card on the reveal-scoping test still names only `opacity: 0`; mention `visibility: hidden` and the per-selector check.
+
+**Why:** With today's CSS none of these trigger, but each lets a real future mistake slip past the tests. Item 1 is the same bug as the Space Grotesk 600 font-weight fix, written a different way.
+
+**Context:** Deferred so the homepage could ship: fixing them would have been a third review-fix cycle. Prove each fix with a mutation in a throwaway copy (for example `font: normal 600 1rem var(--font-sans)` with 600 dropped from the font link should fail the test).
+
+**Effort:** S
+**Priority:** P2
+**Depends on:** None
+
 ## Completed
 
 ### Make the "loads after the page is parsed" test unable to pass by accident
