@@ -1,0 +1,12 @@
+{
+  "$schema": "https://github.com/garrytan/gstack/docs/pregate.md#pregate-v1",
+  "runner": "node --test {files}",
+  "dependencies": {
+    "index.html": ["tests/effects.test.mjs"],
+    "css/**": ["tests/effects.test.mjs"],
+    "js/**": ["tests/effects.test.mjs"],
+    "*.md": []
+  },
+  "warn": [],
+  "strays": { "allow": ["index.html", "css", "js", "tests", ".gstack"] }
+}
